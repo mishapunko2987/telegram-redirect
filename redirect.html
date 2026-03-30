@@ -17,15 +17,12 @@
     background: linear-gradient(135deg, #6a11cb, #2575fc);
     color: #fff;
     text-align: center;
-    overflow: hidden;
   }
 
   .container {
     background: rgba(0,0,0,0.4);
     padding: 30px 25px;
     border-radius: 20px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    animation: fadeIn 1s ease-out;
     width: 90%;
     max-width: 400px;
   }
@@ -33,13 +30,11 @@
   h1 {
     font-size: 28px;
     margin-bottom: 15px;
-    animation: slideIn 1s ease-out;
   }
 
   p {
     font-size: 18px;
     margin-bottom: 25px;
-    animation: slideIn 1.2s ease-out;
   }
 
   .button {
@@ -52,7 +47,6 @@
     text-decoration: none;
     font-size: 18px;
     transition: transform 0.2s, background-color 0.2s;
-    animation: bounce 1.5s infinite alternate;
     margin-bottom: 20px;
   }
 
@@ -83,18 +77,12 @@
     font-size: 16px;
     margin-bottom: 10px;
   }
-
-  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
-  @keyframes slideIn { from {transform:translateY(20px); opacity:0;} to {transform:translateY(0); opacity:1;} }
-  @keyframes bounce { from {transform: translateY(0);} to {transform: translateY(-10px);} }
-
 </style>
 <script>
-  let totalTime = 3; // время редиректа в секундах
+  let totalTime = 3; // время обратного отсчёта
   let elapsed = 0;
-  let interval = 50; // обновление каждые 50ms
-  let progressBar = null;
-  let countdownText = null;
+  let interval = 50;
+  let progressBar, countdownText;
 
   function startProgress() {
     progressBar = document.getElementById("progress");
@@ -103,14 +91,11 @@
       elapsed += interval / 1000;
       let percent = Math.min((elapsed / totalTime) * 100, 100);
       progressBar.style.width = percent + "%";
-
-      // Обратный отсчёт в секундах
       let secondsLeft = Math.ceil(totalTime - elapsed);
-      countdownText.textContent = `Переход через ${secondsLeft} сек`;
-
+      countdownText.textContent = `Готово через ${secondsLeft} сек`;
       if (elapsed >= totalTime) {
         clearInterval(timer);
-        window.location.href = "https://surl.li/lggwuf"; // <-- Замените на вашу ссылку
+        document.getElementById("telegramButton").style.display = "inline-block";
       }
     }, interval);
   }
@@ -121,9 +106,9 @@
 <body>
   <div class="container">
     <h1>🚀 Переход в Telegram</h1>
-    <p>Через несколько секунд вы попадёте в наш чат. Не закрывайте страницу!</p>
-    <a class="button" href="https://surl.li/lggwuf">Перейти сразу</a> <!-- <-- Замените ссылку -->
-    <div class="countdown" id="countdown">Переход через 3 сек</div>
+    <p>Подождите несколько секунд, чтобы открыть чат.</p>
+    <a id="telegramButton" class="button" href="https://t.me/username" target="_blank" style="display:none;">Открыть Telegram</a>
+    <div class="countdown" id="countdown">Готово через 3 сек</div>
     <div class="progress-bar">
       <div class="progress" id="progress"></div>
     </div>
