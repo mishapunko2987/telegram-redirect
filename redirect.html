@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Переход в Telegram</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+  body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc);
+    color: #fff;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .container {
+    background: rgba(0,0,0,0.4);
+    padding: 30px 25px;
+    border-radius: 20px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    animation: fadeIn 1s ease-out;
+    width: 90%;
+    max-width: 400px;
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    animation: slideIn 1s ease-out;
+  }
+
+  p {
+    font-size: 18px;
+    margin-bottom: 25px;
+    animation: slideIn 1.2s ease-out;
+  }
+
+  .button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #ffdd00;
+    color: #000;
+    font-weight: 700;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: transform 0.2s, background-color 0.2s;
+    animation: bounce 1.5s infinite alternate;
+    margin-bottom: 20px;
+  }
+
+  .button:hover {
+    background-color: #ffc700;
+    transform: scale(1.05);
+  }
+
+  .progress-bar {
+    width: 100%;
+    background: rgba(255,255,255,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 15px;
+    margin-bottom: 10px;
+  }
+
+  .progress {
+    background: #ffdd00;
+    height: 100%;
+    width: 0%;
+    border-radius: 20px;
+    transition: width 0.05s linear;
+  }
+
+  .countdown {
+    font-weight: bold;
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  @keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+  @keyframes slideIn { from {transform:translateY(20px); opacity:0;} to {transform:translateY(0); opacity:1;} }
+  @keyframes bounce { from {transform: translateY(0);} to {transform: translateY(-10px);} }
+
+</style>
+<script>
+  let totalTime = 3; // время редиректа в секундах
+  let elapsed = 0;
+  let interval = 50; // обновление каждые 50ms
+  let progressBar = null;
+  let countdownText = null;
+
+  function startProgress() {
+    progressBar = document.getElementById("progress");
+    countdownText = document.getElementById("countdown");
+    let timer = setInterval(() => {
+      elapsed += interval / 1000;
+      let percent = Math.min((elapsed / totalTime) * 100, 100);
+      progressBar.style.width = percent + "%";
+
+      // Обратный отсчёт в секундах
+      let secondsLeft = Math.ceil(totalTime - elapsed);
+      countdownText.textContent = `Переход через ${secondsLeft} сек`;
+
+      if (elapsed >= totalTime) {
+        clearInterval(timer);
+        window.location.href = "https://surl.li/lggwuf"; // <-- Замените на вашу ссылку
+      }
+    }, interval);
+  }
+
+  window.onload = startProgress;
+</script>
+</head>
+<body>
+  <div class="container">
+    <h1>🚀 Переход в Telegram</h1>
+    <p>Через несколько секунд вы попадёте в наш чат. Не закрывайте страницу!</p>
+    <a class="button" href="https://surl.li/lggwuf">Перейти сразу</a> <!-- <-- Замените ссылку -->
+    <div class="countdown" id="countdown">Переход через 3 сек</div>
+    <div class="progress-bar">
+      <div class="progress" id="progress"></div>
+    </div>
+  </div>
+</body>
+</html>
